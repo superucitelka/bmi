@@ -52,3 +52,18 @@ let person = {
         return 'silná obezita';
     }
 }
+
+/* Test metody bmi() */
+console.log(person.bmi(90,180));
+/* Test funkčnosti objektu person */
+person.firstname = 'Ruda';
+person.sex = 'muž';
+person.age = '65+';
+person.weight = 85;
+person.height = 171;
+/* Test výpisu objektu */
+console.log(person);
+/* Test metody bmi() */
+console.log(person.bmi());
+/* Test metody state() */
+console.log(person.state());
