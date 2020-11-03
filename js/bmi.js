@@ -67,3 +67,16 @@ console.log(person);
 console.log(person.bmi());
 /* Test metody state() */
 console.log(person.state());
+
+/* Ohlasová metoda - kliknutí na tlačítko "Vypočítat" */
+document.getElementById('calc').addEventListener('click', function() {
+    /* Předání hodnot z formuláře do atributů objektu person */
+    person.firstname = document.getElementById('firstname').value;
+    /* Použití ternárního operátoru pro ověření stavu přepínače */
+    person.sex = document.getElementById('woman').checked ? 'žena' : 'muž';
+    person.age = document.getElementById('age').value;
+    person.weight = document.getElementById('weight').value;
+    person.height = document.getElementById('height').value;
+    /* Výpis informací do oddílu určeného pro výstup aplikace */
+    document.getElementById('result').innerHTML = `${person.firstname} (${person.sex}): BMI = ${person.bmi()}, ${person.state()}`;        
+});
