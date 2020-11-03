@@ -16,3 +16,39 @@ const bmiCategories = [
 console.log(bmiCategories.find(function(obj) { return obj.age === '18-24'} ));
 /* b) Novější "zkrácená" varianta využívající tzv. arrow funkce */
 console.log(bmiCategories.find(obj => obj.age === '65+'));
+
+/* Proměnná person obsahuje typ objekt tvořený atributy a metodami. */
+let person = {
+    /* Atributy objektu */
+    firstname: '',
+    sex: '',
+    age: '',
+    weight: 0,
+    height: 0,
+    /* Metody objektu */
+    /* Pomocná metoda cmToMetres() převádí údaj z [cm] na [m]. */
+    cmToMetres: function(cm) {
+        return cm / 100;
+    },
+    /* Metoda bmi() vypočítá hodnotu BMI pro danou osobu. */
+    /* Parametr w je přednastaven podle aktuální váhy osoby, parametr h podle její výšky. */
+    bmi: function(w = this.weight, h = this.height) {
+        /* Metoda Math.pow() umožňuje umocnění, metoda toFixed() zajistí zaokrouhlení na určitý počet 
+           desetinných míst. */
+        return (w / Math.pow(this.cmToMetres(h),2)).toFixed(2); 
+    },
+    /* Metoda state() slouží k vyhodnocení stavu BMI dané osoby podle zjištěné hodnoty. */
+    state: function() {
+        /* Do proměnné bmi je uložena hodnota BMI dané osoby. */
+        let bmi = this.bmi();
+        /* Do proměnné bmiCategory je vyhledán objekt odpovídající věkové kategorii dané osoby. */
+        let bmiCategory = bmiCategories.find(obj => obj.age === this.age);
+        /* Podmínky otestují, v jakém stavu je z pohledu BMI s ohledem na věkovou kategorii daná osoba. */
+        /* Klíčové slovo return zajistí okamžité ukončení metody (funkce) s potřebnou návratovou hodnotou. */
+        if (bmi < bmiCategory.weight[0]) return 'podváha';
+        if ((bmi >= bmiCategory.weight[0]) && (bmi < bmiCategory.weight[1])) return 'optimální váha';
+        if ((bmi >= bmiCategory.weight[1]) && (bmi < bmiCategory.weight[2])) return 'nadváha';
+        if ((bmi >= bmiCategory.weight[2]) && (bmi < bmiCategory.weight[3])) return 'obezita';
+        return 'silná obezita';
+    }
+}
